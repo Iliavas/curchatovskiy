@@ -1,11 +1,20 @@
 import numpy as np
 
+from graphDrawer import draw
+
 class Point:
+  counter = 0
+  global_counter = 0
+
+
   def __init__(self, pos):
     self.x = pos[0]
     self.y = pos[1]
     self.z = pos[2]
-  
+    self.is_stok = False
+    self.xs = [pos[0]]
+    self.ys = [pos[1]]
+    self.zs = [pos[2]]
 
   def tick(self, p):
     zero_one_interval = [0, p]
@@ -21,9 +30,9 @@ class Point:
       if first_rand >= i[1][0] and first_rand < i[1][1]: interval = i[0]
     
     potential_force = [
-         [[-1,1,1],[-1,1,-1]],
-         [[1,1,1],[-1,-1,-1]],
          [[-1,1,1],[1,-1,-1]],
+         [[1,1,1],[-1,-1,-1]],
+         [[1,-1,1],[-1,1,-1]],
          [[-1,-1,1],[1,1,-1]]
     ]
 
@@ -34,8 +43,28 @@ class Point:
     self.x += force[0]
     self.y += force[1]
     self.z += force[2]
-
-    print(self)
+    self.counter+=1
+    self.xs.append(self.x)
+    self.ys.append(self.y)
+    self.zs.append(self.z)
+    #print(self, self.counter)
+            
 
   def __str__(self):
-    return "Point({0}, {1}, {2})".format(self.x, self.y, self.z)
+    return "Point({0}, {1}, {2}, stok: {3})".format(self.x, self.y, self.z, self.is_stok)
+  
+
+  def set_stok(self, stokState):
+    if (stokState == True): 
+        with open("res.txt", "a") as file:
+            file.write(str(self.counter) + " ")
+        with open("res.txt", "r") as file:
+            if len(file.read().split(" ")) >= 5000: exit(0)
+        self.counter = 0
+        draw([self.xs, self.ys, self.zs])
+        self.xs = []
+        self.ys = []
+        self.zs = []
+        self.global_counter += 1
+
+    self.is_stok = stokState
