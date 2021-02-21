@@ -9,4 +9,3 @@ def draw(data):
     ax = fig.gca(projection="3d")
     ax.plot(*data)
     plt.savefig(str(time())+".png")
-    

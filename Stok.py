@@ -6,5 +6,5 @@ class Stok:
         self.R = R
     
 
-    def __str__(self):
-        return "Stok([])"
+    def __repr__(self):
+        return "Stok([{}, {}, {}, R: {}])".format(self.x, self.y, self.z, self.R)

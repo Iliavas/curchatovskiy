@@ -12,8 +12,10 @@ class Vertex:
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
 
+    self.stoks = []
+
     self.stoks = [
-        Stok(randomize(sizex, sizey, sizez, lambda x,y,z: True), stokR)
+        Stok(randomize(sizex, sizey, sizez, self.is_normal_positioned_stok), stokR)
         for _ in range(0, stokLen)
     ]
 
@@ -67,6 +69,11 @@ class Vertex:
   def is_normal_positioned(self, x, y, z):
     for stok in self.stoks:
         if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R:
+            return False
+    return True
+  def is_normal_positioned_stok(self, x, y, z):
+    for stok in self.stoks:
+      if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R * 2:
             return False
     return True
   

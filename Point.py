@@ -17,6 +17,7 @@ class Point:
     self.zs = [pos[2]]
 
   def tick(self, p):
+    p = 0.99
     zero_one_interval = [0, p]
     average = (1 - p)/2
     one_two_interval = [p, p+average]
@@ -47,6 +48,9 @@ class Point:
     self.xs.append(self.x)
     self.ys.append(self.y)
     self.zs.append(self.z)
+
+    if self.counter >= 1000:
+        draw([self.xs, self.ys, self.zs])
     #print(self, self.counter)
             
 
@@ -68,3 +72,7 @@ class Point:
         self.global_counter += 1
 
     self.is_stok = stokState
+  
+
+  def __repr__(self):
+    return "Point ({}, {}, {})".format(self.x, self.y, self.z)
