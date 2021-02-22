@@ -14,7 +14,7 @@ class Vertex:
 
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
-    self.grid = GenerateGrid(*self.vertex)
+    self.grid = GenerateGrid(*self.vertex, self)
     self.stoks = []
 
     self.stoks = [

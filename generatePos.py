@@ -11,7 +11,8 @@ class GenerateGrid:
         [1,-1,-1],
         [1,-1,1]
     ]
-    def __init__(self, posx, posy, posz):
+    def __init__(self, posx, posy, posz, parent):
+        print("fuck you")
         sizes = [posx, posy, posz]
         self.vertex.add((0,0,0))
         
@@ -24,12 +25,14 @@ class GenerateGrid:
             stack.pop(0)
             for i in self.vectors:
                 pot_pos = (i[0]+pos[0], i[1]+pos[1], i[2]+pos[2])
-                if pot_pos in self.vertex:
+                if pot_pos not in self.vertex and parent.affilate(pot_pos):
+                    
                     self.vertex.add(pot_pos)
                     stack.append(pot_pos)
+        print(self.vertex)
     
 
     def is_affilate(self, posx, posy, posz):
-        if [posx, posy, posz] in self.vertex:
+        if (posx, posy, posz) in self.vertex:
             return True
         return False
