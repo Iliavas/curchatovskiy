@@ -14,7 +14,6 @@ class Vertex:
 
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
-    self.grid = GenerateGrid(*self.vertex, self)
     self.stoks = []
 
     self.stoks = [
@@ -76,7 +75,7 @@ class Vertex:
   
   def is_normal_positioned(self, x, y, z):
     for stok in self.stoks:
-        if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R and not self.grid.is_affilate(x, y, z):
+        if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R and not (x%2 == y%2 == z%2):
             return False
     return True
   def is_normal_positioned_stok(self, x, y, z):
