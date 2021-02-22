@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+from scipy import stats
+
 class DrawP:
     def __init__(self, p):
         self.accelerator = {p:[]}
@@ -7,7 +9,12 @@ class DrawP:
     
     
     def countFunction(self, countList):
-        return sum(map(lambda x : (6)/(x*3.0+1), countList)) / len(countList)
+        count = 0
+        try:
+            count = sum(map(lambda x : (6)/(x*3.0+1), countList)) / len(countList)
+        except:
+            pass
+        return count
 
     
     def append(self, v):
@@ -26,6 +33,10 @@ class DrawP:
     def draw(self):
         for i in self.accelerator.keys():
             self.accelerator[i] = self.countFunction(self.accelerator[i])
-        print(list(self.accelerator.keys()), list(self.accelerator.values()))
-        plt.plot(self.accelerator.keys(), self.accelerator.values())
-        plt.savefig("a.png")
+        sem = stats.sem(list(self.accelerator.values()))
+        print(sem)
+        print(list(self.accelerator.keys()), list(self.accelerator.values()),"keys")
+        plt.errorbar(list(self.accelerator.keys()), list(self.accelerator.values()),
+                     sem, mfc="red", marker="s", mec="green")
+
+        plt.savefig("b.png")
