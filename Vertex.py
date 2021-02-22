@@ -3,11 +3,14 @@ from Stok import Stok
 from time import sleep
 import numpy as np
 
+from drawPStat import DrawP
+
 from utils import dist, randomize
 
 class Vertex:
 
   accelerator = []
+  pDrawer = DrawP(0.1)
 
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
@@ -39,7 +42,7 @@ class Vertex:
 
   def tick(self):
     for i in self.points:
-      i.tick(np.random.random())
+      i.tick(self.pDrawer.p)
       i.x = i.x % self.vertex[0]
       i.y = i.y % self.vertex[1]
       i.z = i.z % self.vertex[2]
@@ -58,8 +61,13 @@ class Vertex:
   def is_stok(self, point:Point):
     if dist(point.x, point.y, point.z, *self.stok_pos) < self.R:
       self.accelerator.append(point.counter)
+      self.pDrawer.append(point.counter)
+      if len(self.pDrawer) >= 5: self.pDrawer.change_p(self.pDrawer.p+0.1)
+      if self.pDrawer.p >= 0.9: 
+        self.pDrawer.draw()
+        exit(0)
       point.set_stok(True)
-      pos = randomize(*self.vertex)
+      pos = randomize(*self.vertex, self.is_normal_positioned)
       point.x = pos[0]
       point.y = pos[1]
       point.z = pos[2]
