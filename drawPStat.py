@@ -7,7 +7,12 @@ class DrawP:
     
     
     def countFunction(self, countList):
-        return sum(map(lambda x : (6)/(x*3.0+1), countList)) / len(countList)
+        res = 0
+        try:
+            res = sum(map(lambda x : (6)/(x*3.0+1), countList)) / len(countList)
+        except:
+            pass
+        return res
 
     
     def append(self, v):

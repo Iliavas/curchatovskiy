@@ -10,7 +10,7 @@ from utils import dist, randomize
 class Vertex:
 
   accelerator = []
-  pDrawer = DrawP(0.1)
+  pDrawer = DrawP(0.25)
 
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
@@ -63,7 +63,7 @@ class Vertex:
       self.accelerator.append(point.counter)
       self.pDrawer.append(point.counter)
       if len(self.pDrawer) >= 5: self.pDrawer.change_p(self.pDrawer.p+0.1)
-      if self.pDrawer.p >= 0.9: 
+      if self.pDrawer.p >= 0.89: 
         self.pDrawer.draw()
         exit(0)
       point.set_stok(True)
