@@ -33,13 +33,13 @@ class DrawP:
     def draw(self):
         for i in self.accelerator.keys():
             self.accelerator[i] = self.countFunction(self.accelerator[i])
-        #sem = stats.sem(list(self.accelerator.values()))
-        #print(sem)
-        #print(list(self.accelerator.keys()), list(self.accelerator.values()),"keys")
-        #plt.errorbar(list(self.accelerator.keys()), list(self.accelerator.values()),
-                     #sem, mfc="red", marker="s", mec="green")
+        sem = stats.sem(list(self.accelerator.values()))
+        print(sem)
+        print(list(self.accelerator.keys()), list(self.accelerator.values()),"keys")
+        plt.errorbar(list(self.accelerator.keys()), list(self.accelerator.values()),
+                     sem, mfc="red", marker="s", mec="green")
 
-        #plt.savefig("b.png")
+        plt.savefig("b.png")
 
         plt.hist(self.accelerator.values(), color="b", bins=50)
         plt.savefig("c.png")
