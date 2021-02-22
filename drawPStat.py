@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+#from scipy import stats
+
 class DrawP:
     def __init__(self, p):
         self.accelerator = {p:[]}
@@ -31,6 +33,21 @@ class DrawP:
     def draw(self):
         for i in self.accelerator.keys():
             self.accelerator[i] = self.countFunction(self.accelerator[i])
-        print(list(self.accelerator.keys()), list(self.accelerator.values()))
-        plt.plot(self.accelerator.keys(), self.accelerator.values())
-        plt.savefig("a.png")
+        #sem = stats.sem(list(self.accelerator.values()))
+        #print(sem)
+        print(list(self.accelerator.keys()), list(self.accelerator.values()),"keys")
+        #plt.errorbar(list(self.accelerator.keys()), list(self.accelerator.values()),
+        #             sem, mfc="red", marker="s", mec="green")
+
+        #plt.savefig("b.png")
+
+        plt.hist(self.accelerator.values(), color="b", bins=50)
+        plt.savefig("c.png")
+d = DrawP(0.1)
+
+d.append(10)
+d.change_p(0.2)
+d.append(10)
+d.change_p(0.3)
+d.append(30)
+d.draw()

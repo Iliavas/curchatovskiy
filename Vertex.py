@@ -4,7 +4,7 @@ from time import sleep
 import numpy as np
 
 from drawPStat import DrawP
-
+from generatePos import GenerateGrid
 from utils import dist, randomize
 
 class Vertex:
@@ -14,7 +14,7 @@ class Vertex:
 
   def __init__(self, sizex, sizey, sizez, pointsLen, stokLen, stokR):
     self.vertex = [sizex, sizey, sizez]
-
+    self.grid = GenerateGrid(*self.vertex)
     self.stoks = []
 
     self.stoks = [
@@ -76,7 +76,7 @@ class Vertex:
   
   def is_normal_positioned(self, x, y, z):
     for stok in self.stoks:
-        if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R:
+        if dist(stok.x, stok.y, stok.z, x, y, z) < stok.R and not self.grid.is_affilate(x, y, z):
             return False
     return True
   def is_normal_positioned_stok(self, x, y, z):
